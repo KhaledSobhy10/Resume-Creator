@@ -892,11 +892,7 @@ function print() {
 
 //  save resume data
 document.getElementById("save-with-name").onclick = function save() {
-  let data = "";
-  const myElement = document.getElementById("prev");
-  for (const child of myElement.children) {
-    data += child.outerHTML;
-  }
+  const data = getSectionsAsString();
 
   const resumeName =
     document.getElementById("resume-name-input").value +
@@ -929,12 +925,40 @@ function getAvailableResumes() {
   );
 }
 
-document.getElementById("put-html").onclick=()=>{
+document.getElementById("put-html").onclick = () => {
+  console.log("asdasd");
   const html = document.getElementById("put-html-input").value;
-  console.log("🚀 ~ document.getElementById ~ html:", html)
 
   document.getElementById("prev").innerHTML = html;
+};
 
+document.getElementById("copy-btn").onclick = () => {
+  navigator.clipboard
+    .writeText(getSectionsAsString())
+    .then(() => {
+      const alertElement = document.getElementById("copied-alert");
+      alertElement.classList.remove("hide");
+      alertElement.classList.add("show");
+    
+      // Automatically dismiss the alert after 3 seconds (3000 ms)
+      setTimeout(function () {
+        alertElement.classList.remove("show");
+        alertElement.classList.add("hide");
+        }, 2000);    })
+    .catch((err) => {
+      console.error("Failed to copy text:", err);
+    });
+};
+
+
+function getSectionsAsString() {
+  let data = "";
+
+  const myElement = document.getElementById("prev");
+  for (const child of myElement.children) {
+    data += child.outerHTML;
+  }
+  return data;
 }
 
 //by window  |mobile problems

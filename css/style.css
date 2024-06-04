@@ -114,3 +114,10 @@ ul {
 #left-side {
   margin-bottom: 10px;
 }
+
+
+.my-custom-alert{
+  position: fixed;
+  bottom: 0;
+  margin: 20px;
+}
